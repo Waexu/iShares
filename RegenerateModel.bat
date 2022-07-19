@@ -1,0 +1,1 @@
+dotnet ef dbcontext scaffold "Host=127.0.0.1;Database=ETF;Username=postgres;Password=password" Npgsql.EntityFrameworkCore.PostgreSQL -o Models\Database\EntityFramework --use-database-names --no-pluralize -v --force

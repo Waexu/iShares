@@ -45,6 +45,7 @@ namespace ETF_API.Logic.ETF
                             AsOfDate = AsOfDate,
                             Ticker = CsvItem.Ticker.NullIfEmpty(),
                             Name = CsvItem.Name.NullIfEmpty(),
+                            Type = CsvItem.Type.NullIfEmpty(),
                             Sector = CsvItem.Sector.NullIfEmpty(),
                             AssetClass = CsvItem.AssetClass.NullIfEmpty(),
                             MarketValue = CsvItem.MarketValue,

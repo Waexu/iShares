@@ -76,6 +76,8 @@ namespace ETF_API.Models.Database.EntityFramework
 
                 entity.Property(e => e.Ticker).HasMaxLength(10);
 
+                entity.Property(e => e.Type).HasMaxLength(100);
+
                 entity.Property(e => e.Weight).HasPrecision(5, 2);
 
                 entity.HasOne(d => d.EtfNavigation)

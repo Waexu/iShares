@@ -7,6 +7,7 @@ namespace ETF_API.Models.ETF.Csv.Merged
         [Name("As Of Date")][Format("yyyy-MM-dd")] public DateTime AsOfDate { get; set; }
         [Name("Ticker")] public string Ticker { get; set; }
         [Name("Name")] public string Name { get; set; }
+        [Name("Type")] public string Type { get; set; }
         [Name("Sector")] public string Sector { get; set; }
         [Name("Asset Class")] public string AssetClass { get; set; }
         [Name("Market Value")] public decimal? MarketValue { get; set; }

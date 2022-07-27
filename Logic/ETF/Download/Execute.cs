@@ -87,18 +87,23 @@
                                         return;
                                     }
 
+                                    var HtmlTask = Client.GetAsync(Item.ETF.Url);
                                     var CsvTask = Client.GetAsync(Item.ETF.CsvUrl);
                                     var JsonTask = Client.GetAsync(Item.ETF.JsonUrl);
+
+                                    var Html = await HtmlTask;
                                     var Csv = await CsvTask;
                                     var Json = await JsonTask;
 
+                                    ItemLog.Add($"{DateTime.Now}: {Item.ETF.Url} | STATUS CODE {(int)Html.StatusCode} ({Html.StatusCode})");
                                     ItemLog.Add($"{DateTime.Now}: {Item.ETF.CsvUrl} | STATUS CODE {(int)Csv.StatusCode} ({Csv.StatusCode})");
                                     ItemLog.Add($"{DateTime.Now}: {Item.ETF.JsonUrl} | STATUS CODE {(int)Json.StatusCode} ({Json.StatusCode})");
 
+                                    var HtmlContent = await Html.Content.ReadAsStringAsync();
                                     var CsvContent = await Csv.Content.ReadAsStringAsync();
                                     var JsonContent = await Json.Content.ReadAsStringAsync();
 
-                                    var MergedLines = Logic.ETF.Csv.Original.MergeWithJson(CsvContent, JsonContent, Item.ETF.AsOfDate);
+                                    var MergedLines = Logic.ETF.Csv.Original.MergeWithJson(CsvContent, JsonContent, HtmlContent, Item.ETF.AsOfDate);
                                     var MergedCsvContent = Logic.ETF.Csv.Merged.ToString(MergedLines);
 
                                     // First we save merged csv because in case of error originals shouldn't be saved

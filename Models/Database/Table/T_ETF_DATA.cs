@@ -12,6 +12,7 @@
                 ("AsOfDate", "DATE NOT NULL"),
                 ("Ticker", "VARCHAR(10) NULL"),
                 ("Name", "VARCHAR(150) NULL"),
+                ("Type", "VARCHAR(100) NULL"),
                 ("Sector", "VARCHAR(100) NULL"),
                 ("AssetClass", "VARCHAR(100) NULL"),
                 ("MarketValue", "DECIMAL(14, 2) NULL"),

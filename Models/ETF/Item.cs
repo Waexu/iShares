@@ -30,14 +30,16 @@ namespace ETF_API.Models.ETF
             }
 
             var AsOfDateUrlFormat = AsOfDate.ToString("yyyyMMdd");
-            this.CsvUrl = $"{Global.Settings.iShares.Root}/{NameUrlFormat}/{Global.Settings.iShares.AjaxTimestamp}.ajax?fileType=csv&fileName=holdings&dataType=fund&asOfDate={AsOfDateUrlFormat}";
-            this.JsonUrl = $"{Global.Settings.iShares.Root}/{NameUrlFormat}/{Global.Settings.iShares.AjaxTimestamp}.ajax?tab=all&fileType=json&asOfDate={AsOfDateUrlFormat}";
+            this.Url = $"{Global.Settings.iShares.Root}/{NameUrlFormat}/";
+            this.CsvUrl = $"{this.Url}{Global.Settings.iShares.AjaxTimestamp}.ajax?fileType=csv&fileName=holdings&dataType=fund&asOfDate={AsOfDateUrlFormat}";
+            this.JsonUrl = $"{this.Url}{NameUrlFormat}/{Global.Settings.iShares.AjaxTimestamp}.ajax?tab=all&fileType=json&asOfDate={AsOfDateUrlFormat}";
         }
         public string Name { get; }
         public int Id { get; }
         public short Year { get; }
         public byte Month { get; }
         public DateTime AsOfDate { get; }
+        public string Url { get; }
         public string CsvUrl { get; }
         public string JsonUrl { get; }
 

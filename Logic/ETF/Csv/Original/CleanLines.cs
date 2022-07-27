@@ -6,28 +6,33 @@
         {
             var Result = new List<string>();
 
-            var IsHeaderPassed = false;
-            var IsHeader = false;
+            var IsHeaderFound = false;
 
             foreach (var Line in CsvContent.Split("\n"))
             {
-                if (IsHeader)
-                {
-                    IsHeader = false;
-                    continue;
-                }
-
                 var CleanLine = Line.Trim();
+
+
                 var IsLineEmpty = CleanLine == String.Empty;
-                if (!IsHeaderPassed)
+
+                if (IsLineEmpty)
                 {
-                    IsHeaderPassed = IsLineEmpty;
-                    IsHeader = true;
-                    continue;
+                    if (!IsHeaderFound)
+                    {
+                        IsHeaderFound = true;
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-                else if (IsLineEmpty)
+                else
                 {
-                    break;
+                    if (!IsHeaderFound)
+                    {
+                        continue;
+                    }
                 }
 
                 Result.Add(CleanLine);

@@ -6,40 +6,32 @@ namespace ETF_API.Models
     {
         public class iSharesSettings
         {
-            public class JsonSettings
-            {
-                public short PropertiesQuantity { get; set; }
-                public byte Ticker_Index { get; set; }
-                public byte ISIN_Index { get; set; }
-                public byte SEDOL_Index { get; set; }
-                public byte CUSIP_Index { get; set; }
-            }
-
             public class CsvSettings
             {
-                public byte Ticker_Index { get; set; }
-                public byte Name_Index { get; set; }
-                public byte Sector_Index { get; set; }
-                public byte AssetClass_Index { get; set; }
-                public byte MarketValue_Index { get; set; }
-                public byte Weight_Index { get; set; }
-                public byte NotionalValue_Index { get; set; }
-                public byte Shares_Index { get; set; }
-                public byte Price_Index { get; set; }
-                public byte Location_Index { get; set; }
-                public byte Exchange_Index { get; set; }
-                public byte Currency_Index { get; set; }
-                public byte FXRate_Index { get; set; }
-                public byte MarketCurrency_Index { get; set; }
-                public byte AccrualDate_Index { get; set; }
-                public byte[] NumericIndexes => new byte[] 
-                                                { 
-                                                    MarketValue_Index,
-                                                    Weight_Index,
-                                                    NotionalValue_Index,
-                                                    Shares_Index,
-                                                    Price_Index,
-                                                    FXRate_Index
+                public string Ticker_Header { get; set; }
+                public string Name_Header { get; set; }
+                public string Type_Header { get; set; }
+                public string Sector_Header { get; set; }
+                public string AssetClass_Header { get; set; }
+                public string MarketValue_Header { get; set; }
+                public string Weight_Header { get; set; }
+                public string NotionalValue_Header { get; set; }
+                public string Shares_Header { get; set; }
+                public string Price_Header { get; set; }
+                public string Location_Header { get; set; }
+                public string Exchange_Header { get; set; }
+                public string Currency_Header { get; set; }
+                public string FXRate_Header { get; set; }
+                public string MarketCurrency_Header { get; set; }
+                public string AccrualDate_Header { get; set; }
+                public string[] NumericHeaders => new string[]
+                                                {
+                                                    MarketValue_Header,
+                                                    Weight_Header,
+                                                    NotionalValue_Header,
+                                                    Shares_Header,
+                                                    Price_Header,
+                                                    FXRate_Header
                                                 };
             }
 
@@ -52,7 +44,7 @@ namespace ETF_API.Models
             public short SleepSecondsBetweenRequestsMin { get; set; }
             public short SleepSecondsBetweenRequestsMax { get; set; }
             public long AjaxTimestamp { get; set; }
-            public JsonSettings Json { get; set; }
+           // public JsonSettings Json { get; set; }
             public CsvSettings Csv { get; set; }
         }
 

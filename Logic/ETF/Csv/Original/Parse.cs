@@ -8,13 +8,13 @@ namespace ETF_API.Logic.ETF.Csv
 {
     public partial class Original
     {
-        public static List<Models.ETF.Csv.Merged.Line> Parse(List<string> RawLines, bool HasHeaderRecord)
+        public static List<Models.ETF.Csv.Merged.Line> Parse(List<string> RawLines/*, bool HasHeaderRecord*/)
         {
             var Result = new List<Models.ETF.Csv.Merged.Line>();
 
             var CsvConfiguration = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
-                HasHeaderRecord = HasHeaderRecord
+                HasHeaderRecord = true //HasHeaderRecord
             };
 
             using var CsvStringReader = new StringReader(string.Join('\n', RawLines));
@@ -22,25 +22,46 @@ namespace ETF_API.Logic.ETF.Csv
 
             var CsvSettings = Global.Settings.iShares.Csv;
 
+            string ParseString(string Header)
+            {
+                if (SourceCsv.TryGetField<string>(Header, out var Value))
+                {
+                    return Helpers.ParseString(Value);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            decimal? ParseDecimal(string Header)
+            {
+                var Result = ParseString(Header);
+                return Result == null ? null : Helpers.ParseDecimal(Result);
+            }
+
+            SourceCsv.Read();
+            SourceCsv.ReadHeader();
             while (SourceCsv.Read())
             {
                 var Line = new Models.ETF.Csv.Merged.Line
                 {
-                    Ticker = Helpers.ParseString(SourceCsv.GetField(CsvSettings.Ticker_Index)),
-                    Name = Helpers.ParseString(SourceCsv.GetField(CsvSettings.Name_Index)),
-                    Sector = Helpers.ParseString(SourceCsv.GetField(CsvSettings.Sector_Index)),
-                    AssetClass = Helpers.ParseString(SourceCsv.GetField(CsvSettings.AssetClass_Index)),
-                    MarketValue = Helpers.ParseDecimal(SourceCsv.GetField(CsvSettings.MarketValue_Index)),
-                    Weight = Helpers.ParseDecimal(SourceCsv.GetField(CsvSettings.Weight_Index)),
-                    NotionalValue = Helpers.ParseDecimal(SourceCsv.GetField(CsvSettings.NotionalValue_Index)),
-                    Shares = Helpers.ParseDecimal(SourceCsv.GetField(CsvSettings.Shares_Index)),
-                    Price = Helpers.ParseDecimal(SourceCsv.GetField(CsvSettings.Price_Index)),
-                    Location = Helpers.ParseString(SourceCsv.GetField(CsvSettings.Location_Index)),
-                    Exchange = Helpers.ParseString(SourceCsv.GetField(CsvSettings.Exchange_Index)),
-                    Currency = Helpers.ParseString(SourceCsv.GetField(CsvSettings.Currency_Index)),
-                    FXRate = Helpers.ParseDecimal(SourceCsv.GetField(CsvSettings.FXRate_Index)),
-                    MarketCurrency = Helpers.ParseString(SourceCsv.GetField(CsvSettings.MarketCurrency_Index)),
-                    AccrualDate = Helpers.ParseString(SourceCsv.GetField(CsvSettings.AccrualDate_Index)),
+                    Ticker = ParseString(CsvSettings.Ticker_Header),
+                    Name = ParseString(CsvSettings.Name_Header),
+                    Type = ParseString(CsvSettings.Type_Header),
+                    Sector = ParseString(CsvSettings.Sector_Header),
+                    AssetClass = ParseString(CsvSettings.AssetClass_Header),
+                    MarketValue = ParseDecimal(CsvSettings.MarketValue_Header),
+                    Weight = ParseDecimal(CsvSettings.Weight_Header),
+                    NotionalValue = ParseDecimal(CsvSettings.NotionalValue_Header),
+                    Shares = ParseDecimal(CsvSettings.Shares_Header),
+                    Price = ParseDecimal(CsvSettings.Price_Header),
+                    Location = ParseString(CsvSettings.Location_Header),
+                    Exchange = ParseString(CsvSettings.Exchange_Header),
+                    Currency = ParseString(CsvSettings.Currency_Header),
+                    FXRate = ParseDecimal(CsvSettings.FXRate_Header),
+                    MarketCurrency = ParseString(CsvSettings.MarketCurrency_Header),
+                    AccrualDate = ParseString(CsvSettings.AccrualDate_Header),
                 };
 
                 Result.Add(Line);

@@ -10,6 +10,7 @@ namespace ETF_API.Models.Database.EntityFramework
         public DateOnly AsOfDate { get; set; }
         public string Ticker { get; set; }
         public string Name { get; set; }
+        public string Type { get; set; }
         public string Sector { get; set; }
         public string AssetClass { get; set; }
         public decimal? MarketValue { get; set; }
